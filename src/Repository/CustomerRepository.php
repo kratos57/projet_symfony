@@ -2,32 +2,32 @@
 
 namespace App\Repository;
 
-use App\Entity\Voyage;
+use App\Entity\Customer;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<Voyage>
+ * @extends ServiceEntityRepository<Customer>
  *
- * @method Voyage|null find($id, $lockMode = null, $lockVersion = null)
- * @method Voyage|null findOneBy(array $criteria, array $orderBy = null)
- * @method Voyage[]    findAll()
- * @method Voyage[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Customer|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Customer|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Customer[]    findAll()
+ * @method Customer[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class VoyageRepository extends ServiceEntityRepository
+class CustomerRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Voyage::class);
+        parent::__construct($registry, Customer::class);
     }
 
     /**
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function add(Voyage $entity, bool $flush = true): void
+    public function add(Customer $entity, bool $flush = true): void
     {
         $this->_em->persist($entity);
         if ($flush) {
@@ -39,7 +39,7 @@ class VoyageRepository extends ServiceEntityRepository
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function remove(Voyage $entity, bool $flush = true): void
+    public function remove(Customer $entity, bool $flush = true): void
     {
         $this->_em->remove($entity);
         if ($flush) {
@@ -48,15 +48,15 @@ class VoyageRepository extends ServiceEntityRepository
     }
 
     // /**
-    //  * @return Voyage[] Returns an array of Voyage objects
+    //  * @return Customer[] Returns an array of Customer objects
     //  */
     /*
     public function findByExampleField($value)
     {
-        return $this->createQueryBuilder('v')
-            ->andWhere('v.exampleField = :val')
+        return $this->createQueryBuilder('c')
+            ->andWhere('c.exampleField = :val')
             ->setParameter('val', $value)
-            ->orderBy('v.id', 'ASC')
+            ->orderBy('c.id', 'ASC')
             ->setMaxResults(10)
             ->getQuery()
             ->getResult()
@@ -65,10 +65,10 @@ class VoyageRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?Voyage
+    public function findOneBySomeField($value): ?Customer
     {
-        return $this->createQueryBuilder('v')
-            ->andWhere('v.exampleField = :val')
+        return $this->createQueryBuilder('c')
+            ->andWhere('c.exampleField = :val')
             ->setParameter('val', $value)
             ->getQuery()
             ->getOneOrNullResult()

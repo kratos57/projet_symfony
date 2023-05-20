@@ -2,15 +2,15 @@
 
 namespace App\Entity;
 
-use App\Repository\VoyageRepository;
+use App\Repository\TravelPackageRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=VoyageRepository::class)
+ * @ORM\Entity(repositoryClass=TravelPackageRepository::class)
  */
-class Voyage
+class TravelPackage
 {
     /**
      * @ORM\Id
@@ -40,14 +40,22 @@ class Voyage
     private $price;
 
     /**
-     * @ORM\OneToMany(targetEntity=Booking::class, mappedBy="voyage_id")
+     * @ORM\OneToMany(targetEntity=Customer::class, mappedBy="packageChosen")
+     */
+    private $customers;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Booking::class, mappedBy="travelPackage")
      */
     private $bookings;
 
     public function __construct()
     {
+        $this->customers = new ArrayCollection();
         $this->bookings = new ArrayCollection();
     }
+
+ 
 
     public function getId(): ?int
     {
@@ -103,6 +111,36 @@ class Voyage
     }
 
     /**
+     * @return Collection<int, Customer>
+     */
+    public function getCustomers(): Collection
+    {
+        return $this->customers;
+    }
+
+    public function addCustomer(Customer $customer): self
+    {
+        if (!$this->customers->contains($customer)) {
+            $this->customers[] = $customer;
+            $customer->setPackageChosen($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCustomer(Customer $customer): self
+    {
+        if ($this->customers->removeElement($customer)) {
+            // set the owning side to null (unless already changed)
+            if ($customer->getPackageChosen() === $this) {
+                $customer->setPackageChosen(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
      * @return Collection<int, Booking>
      */
     public function getBookings(): Collection
@@ -114,7 +152,7 @@ class Voyage
     {
         if (!$this->bookings->contains($booking)) {
             $this->bookings[] = $booking;
-            $booking->setVoyageId($this);
+            $booking->setTravelPackage($this);
         }
 
         return $this;
@@ -124,12 +162,13 @@ class Voyage
     {
         if ($this->bookings->removeElement($booking)) {
             // set the owning side to null (unless already changed)
-            if ($booking->getVoyageId() === $this) {
-                $booking->setVoyageId(null);
+            if ($booking->getTravelPackage() === $this) {
+                $booking->setTravelPackage(null);
             }
         }
 
         return $this;
     }
 
+ 
 }

@@ -2,15 +2,15 @@
 
 namespace App\Entity;
 
-use App\Repository\UserRepository;
+use App\Repository\CustomerRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=UserRepository::class)
+ * @ORM\Entity(repositoryClass=CustomerRepository::class)
  */
-class User
+class Customer
 {
     /**
      * @ORM\Id
@@ -35,25 +35,21 @@ class User
     private $email;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $pwd;
-
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $tel;
-
-    /**
-     * @ORM\OneToMany(targetEntity=Booking::class, mappedBy="user_id")
+     * @ORM\OneToMany(targetEntity=Booking::class, mappedBy="customer")
      */
     private $bookings;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=TravelPackage::class, inversedBy="customers")
+     */
+    private $packageChosen;
+
+  
 
     public function __construct()
     {
         $this->bookings = new ArrayCollection();
     }
-
 
     public function getId(): ?int
     {
@@ -96,30 +92,6 @@ class User
         return $this;
     }
 
-    public function getPwd(): ?string
-    {
-        return $this->pwd;
-    }
-
-    public function setPwd(string $pwd): self
-    {
-        $this->pwd = $pwd;
-
-        return $this;
-    }
-
-    public function getTel(): ?int
-    {
-        return $this->tel;
-    }
-
-    public function setTel(int $tel): self
-    {
-        $this->tel = $tel;
-
-        return $this;
-    }
-
     /**
      * @return Collection<int, Booking>
      */
@@ -132,7 +104,7 @@ class User
     {
         if (!$this->bookings->contains($booking)) {
             $this->bookings[] = $booking;
-            $booking->setUserId($this);
+            $booking->setCustomer($this);
         }
 
         return $this;
@@ -142,12 +114,25 @@ class User
     {
         if ($this->bookings->removeElement($booking)) {
             // set the owning side to null (unless already changed)
-            if ($booking->getUserId() === $this) {
-                $booking->setUserId(null);
+            if ($booking->getCustomer() === $this) {
+                $booking->setCustomer(null);
             }
         }
 
         return $this;
     }
 
+    public function getPackageChosen(): ?TravelPackage
+    {
+        return $this->packageChosen;
+    }
+
+    public function setPackageChosen(?TravelPackage $packageChosen): self
+    {
+        $this->packageChosen = $packageChosen;
+
+        return $this;
+    }
+
+   
 }
