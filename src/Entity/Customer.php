@@ -132,10 +132,13 @@ class Customer
             if ($booking->getCustomer() === $this) {
                 $booking->setCustomer(null);
             }
+            $entityManager->remove($booking);
+            $entityManager->flush();
         }
 
         return $this;
     }
+    
 
     public function __toString(): string
     {

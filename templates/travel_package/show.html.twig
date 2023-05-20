@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}TravelPackage{% endblock %}
+
+{% block body %}
+    <h1>TravelPackage</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ travel_package.id }}</td>
+            </tr>
+            <tr>
+                <th>Destination</th>
+                <td>{{ travel_package.destination }}</td>
+            </tr>
+            <tr>
+                <th>StartDate</th>
+                <td>{{ travel_package.startDate ? travel_package.startDate|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>EndDate</th>
+                <td>{{ travel_package.endDate ? travel_package.endDate|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Price</th>
+                <td>{{ travel_package.price }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_travel_package_index') }}">back to list</a>
+
+    <a href="{{ path('app_travel_package_edit', {'id': travel_package.id}) }}">edit</a>
+
+    {{ include('travel_package/_delete_form.html.twig') }}
+{% endblock %}
