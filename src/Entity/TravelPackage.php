@@ -58,7 +58,7 @@ class TravelPackage
  
     public function __toString(): string
     {
-        return $this->destination;
+        return $this->id . ' ' . $this->destination ;
     }
 
     public function getId(): ?int

@@ -139,6 +139,6 @@ class Customer
 
     public function __toString(): string
     {
-        return $this->nom . ' ' . $this->prenom;
+        return $this->nom . ' ' . $this->email;
     }
 }
