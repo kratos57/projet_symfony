@@ -45,7 +45,7 @@ class TravelPackage
     private $customers;
 
     /**
-     * @ORM\OneToMany(targetEntity=Booking::class, mappedBy="travelPackage")
+     * @ORM\OneToMany(targetEntity=Booking::class, mappedBy="TravelPackage")
      */
     private $bookings;
 
@@ -56,6 +56,10 @@ class TravelPackage
     }
 
  
+    public function __toString(): string
+    {
+        return $this->destination;
+    }
 
     public function getId(): ?int
     {
@@ -169,6 +173,7 @@ class TravelPackage
 
         return $this;
     }
+
 
  
 }

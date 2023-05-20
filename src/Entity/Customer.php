@@ -35,22 +35,23 @@ class Customer
     private $email;
 
     /**
-     * @ORM\OneToMany(targetEntity=Booking::class, mappedBy="customer")
-     */
-    private $bookings;
-
-    /**
      * @ORM\ManyToOne(targetEntity=TravelPackage::class, inversedBy="customers")
      */
     private $packageChosen;
 
-  
+    /**
+     * @ORM\OneToMany(targetEntity=Booking::class, mappedBy="customer")
+     */
+    private $bookings;
 
     public function __construct()
     {
         $this->bookings = new ArrayCollection();
     }
 
+  
+
+  
     public function getId(): ?int
     {
         return $this->id;
@@ -100,6 +101,20 @@ class Customer
         return $this->bookings;
     }
 
+ 
+
+    public function getPackageChosen(): ?TravelPackage
+    {
+        return $this->packageChosen;
+    }
+
+    public function setPackageChosen(?TravelPackage $packageChosen): self
+    {
+        $this->packageChosen = $packageChosen;
+
+        return $this;
+    }
+
     public function addBooking(Booking $booking): self
     {
         if (!$this->bookings->contains($booking)) {
@@ -122,17 +137,8 @@ class Customer
         return $this;
     }
 
-    public function getPackageChosen(): ?TravelPackage
+    public function __toString(): string
     {
-        return $this->packageChosen;
+        return $this->nom . ' ' . $this->prenom;
     }
-
-    public function setPackageChosen(?TravelPackage $packageChosen): self
-    {
-        $this->packageChosen = $packageChosen;
-
-        return $this;
-    }
-
-   
 }
