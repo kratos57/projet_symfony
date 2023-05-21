@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/customer")
+ * @Route("/compte")
  */
 class CustomerController extends AbstractController
 {
@@ -20,7 +20,7 @@ class CustomerController extends AbstractController
      */
     public function index(CustomerRepository $customerRepository): Response
     {
-        return $this->render('customer/index.html.twig', [
+        return $this->render('Admin/gererCompte.html.twig', [
             'customers' => $customerRepository->findAll(),
         ]);
     }

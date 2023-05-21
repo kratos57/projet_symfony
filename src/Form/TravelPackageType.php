@@ -17,6 +17,7 @@ class TravelPackageType extends AbstractType
             ->add('endDate')
             ->add('price')
             ->add('imgSrc')
+            
             ->add('description')
         ;
     }
