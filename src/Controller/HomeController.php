@@ -2,46 +2,41 @@
 namespace App\Controller;
 
 use App\Entity\TravelPackage;
+use App\Form\TravelPackageType;
 use App\Repository\TravelPackageRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
- /**
-     * @Route("/home")
-     */
+
 class HomeController extends AbstractController
 {
     /**
-     * @Route("/listevoyage", name="client_home")
+     * @Route("/home",  methods={"GET"})
      */
-    public function listeVoyages(): Response
+    public function index(TravelPackageRepository $travelPackageRepository): Response
     {
-        $entityManager = $this->getDoctrine()->getManager();
-        $voyages = $entityManager->getRepository(TravelPackage::class)->findAll();
-
         return $this->render('client/home.html.twig', [
-            'voyages' => $voyages,
+            'travel_packages' => $travelPackageRepository->findAll(),
         ]);
     }
-    
+
+
     /**
      * @Route("/recherche", name="recherche")
      */
-    public function recherche(Request $request, TravelPackageRepository $travelPackageRepository): Response
+    public function recherche(Request $request)
     {
-        $query = $request->query->get('query'); // Récupère le paramètre de recherche
+        $destination = $request->query->get('destination');
+        $travelPackage = [];
 
-        if ($query !== null) {
-            // Effectuez votre logique de recherche ici
-            $voyages = $travelPackageRepository->searchByDestination($query);
-        } else {
-            // Effectuez une autre logique si aucun paramètre de recherche n'est spécifié
-            $voyages = $travelPackageRepository->findAll();
+        if ($destination) {
+            $travelPackage = $this->getDoctrine()->getRepository(TravelPackage::class)->searchByDestination($destination);
         }
 
         return $this->render('client/home.html.twig', [
-            'voyages' => $voyages,
+            'travel_packages' => $travelPackage,
+            'destination' => $destination,
         ]);
     }
 }

@@ -18,9 +18,11 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class TravelPackageRepository extends ServiceEntityRepository
 {
+   
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, TravelPackage::class);
+      
     }
 
     /**
@@ -45,14 +47,15 @@ class TravelPackageRepository extends ServiceEntityRepository
         if ($flush) {
             $this->_em->flush();
         }
-    }
-    public function searchByDestination(string $query)
-    {
-        return $this->createQueryBuilder('t')
-            ->andWhere('t.destination LIKE :query')
-            ->setParameter('query', '%'.$query.'%')
-            ->getQuery()
-            ->getResult();
+    } 
+        public function searchByDestination($destination)
+        {    
+            return $this->createQueryBuilder('t')
+                ->andWhere('t.destination LIKE :destination')
+                ->setParameter('destination', '%' . $destination . '%')
+                ->getQuery()
+                ->getResult();
+        }
     }
 
     // /**
@@ -83,4 +86,3 @@ class TravelPackageRepository extends ServiceEntityRepository
         ;
     }
     */
-}
