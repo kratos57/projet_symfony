@@ -184,7 +184,7 @@ rel="stylesheet"
                 </td>
 
                 <td>
-                  <p class="fw-normal mb-1">{{customer.packageChosen}}</p>
+                  <p class="fw-normal mb-1">{{customer.packageChosen.destination}}</p>
                   <p class="text-muted mb-0"></p>
                 </td>
               
@@ -194,9 +194,10 @@ rel="stylesheet"
                 </td>
 
                 <td>
-                  <button type="button" class="btn btn-link btn-sm btn-rounded">
-                    <a href="#"><i class="fas fa-xmark "></i></a>
-                  </button>
+                 
+                {{ include('Admin/_delete_form.html.twig') }}
+
+
                 </td>
               </tr>
             {% endfor %}

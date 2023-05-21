@@ -40,15 +40,12 @@ class Customer
     private $packageChosen;
 
     /**
-     * @ORM\OneToMany(targetEntity=Booking::class, mappedBy="customer")
+     * @ORM\ManyToOne(targetEntity=Reserve::class, inversedBy="customer")
+     * @ORM\JoinColumn(nullable=false)
      */
-    private $bookings;
+   
 
-    public function __construct()
-    {
-        $this->bookings = new ArrayCollection();
-    }
-
+  
   
 
   
@@ -93,14 +90,7 @@ class Customer
         return $this;
     }
 
-    /**
-     * @return Collection<int, Booking>
-     */
-    public function getBookings(): Collection
-    {
-        return $this->bookings;
-    }
-
+ 
  
 
     public function getPackageChosen(): ?TravelPackage
@@ -115,33 +105,14 @@ class Customer
         return $this;
     }
 
-    public function addBooking(Booking $booking): self
-    {
-        if (!$this->bookings->contains($booking)) {
-            $this->bookings[] = $booking;
-            $booking->setCustomer($this);
-        }
 
-        return $this;
-    }
 
-    public function removeBooking(Booking $booking): self
-    {
-        if ($this->bookings->removeElement($booking)) {
-            // set the owning side to null (unless already changed)
-            if ($booking->getCustomer() === $this) {
-                $booking->setCustomer(null);
-            }
-            $entityManager->remove($booking);
-            $entityManager->flush();
-        }
-
-        return $this;
-    }
     
 
     public function __toString(): string
     {
         return $this->nom . ' ' . $this->email . ' ' . $this->packageChosen . ' ' . $this->prenom . ' ' . $this->packageChosen ;
     }
+
+    
 }
