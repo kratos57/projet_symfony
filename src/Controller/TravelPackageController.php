@@ -40,7 +40,7 @@ class TravelPackageController extends AbstractController
             return $this->redirectToRoute('app_travel_package_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('travel_package/new.html.twig', [
+        return $this->render('Admin/ajouter.html.twig', [
             'travel_package' => $travelPackage,
             'form' => $form->createView(),
         ]);
