@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Luxurya Voyage</title>
+    <!-- Inclure les fichiers CSS de Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Luxurya Voyage</a>
+    </nav>
+
+    <section>
+        <!-- Box de recherche -->
+        <div class="search-box">
+            <form action="{{ path('recherche')}}" method="GET">
+                <input type="text" name="destination" placeholder="Destination" class="form-control">
+                <button type="submit" class="btn btn-primary">Rechercher</button>
+            </form>
+        </div>
+
+        <!-- Box des détails de voyage -->
+        <div class="voyage-box">
+            {% for voyage in voyages %}
+                <div class="card">
+                {# <img src="{{ .img_src }}" class="card-img-top" alt="Image du voyage"> #}
+                    <div class="card-body">
+                        <h5 class="card-title">{{ voyage.destination }}</h5>
+                        <p class="card-text">Date de départ : {{ voyage.date_depart }}</p>
+                        <p class="card-text">Date de retour : {{ voyage.date_retour }}</p>
+                        <p class="card-text">Prix : {{ voyage.prix }}</p>
+                        <p class="card-text">Description du vol : {{ voyage.description_vol }}</p>
+                        <a href="#" class="btn btn-primary">Réserver</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <!-- Inclure les fichiers JavaScript de Bootstrap -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

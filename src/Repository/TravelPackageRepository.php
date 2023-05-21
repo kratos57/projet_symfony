@@ -46,6 +46,14 @@ class TravelPackageRepository extends ServiceEntityRepository
             $this->_em->flush();
         }
     }
+    public function searchByDestination(string $query)
+    {
+        return $this->createQueryBuilder('t')
+            ->andWhere('t.destination LIKE :query')
+            ->setParameter('query', '%'.$query.'%')
+            ->getQuery()
+            ->getResult();
+    }
 
     // /**
     //  * @return TravelPackage[] Returns an array of TravelPackage objects
