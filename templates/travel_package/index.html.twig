@@ -13,6 +13,8 @@
                 <th>StartDate</th>
                 <th>EndDate</th>
                 <th>Price</th>
+                <th>ImgSrc</th>
+                <th>Description</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -24,6 +26,8 @@
                 <td>{{ travel_package.startDate ? travel_package.startDate|date('Y-m-d') : '' }}</td>
                 <td>{{ travel_package.endDate ? travel_package.endDate|date('Y-m-d') : '' }}</td>
                 <td>{{ travel_package.price }}</td>
+                <td>{{ travel_package.imgSrc }}</td>
+                <td>{{ travel_package.description }}</td>
                 <td>
                     <a href="{{ path('app_travel_package_show', {'id': travel_package.id}) }}">show</a>
                     <a href="{{ path('app_travel_package_edit', {'id': travel_package.id}) }}">edit</a>
@@ -31,7 +35,7 @@
             </tr>
         {% else %}
             <tr>
-                <td colspan="6">no records found</td>
+                <td colspan="8">no records found</td>
             </tr>
         {% endfor %}
         </tbody>

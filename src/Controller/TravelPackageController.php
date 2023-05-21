@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/travel/package")
+ * @Route("/admin")
  */
 class TravelPackageController extends AbstractController
 {
@@ -20,10 +20,11 @@ class TravelPackageController extends AbstractController
      */
     public function index(TravelPackageRepository $travelPackageRepository): Response
     {
-        return $this->render('travel_package/index.html.twig', [
+        return $this->render('Admin/index.html.twig', [
             'travel_packages' => $travelPackageRepository->findAll(),
         ]);
     }
+
 
     /**
      * @Route("/new", name="app_travel_package_new", methods={"GET", "POST"})

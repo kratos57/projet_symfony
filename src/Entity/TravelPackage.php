@@ -49,6 +49,16 @@ class TravelPackage
      */
     private $bookings;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $imgSrc;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $description;
+
     public function __construct()
     {
         $this->customers = new ArrayCollection();
@@ -170,6 +180,30 @@ class TravelPackage
                 $booking->setTravelPackage(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getImgSrc(): ?string
+    {
+        return $this->imgSrc;
+    }
+
+    public function setImgSrc(?string $imgSrc): self
+    {
+        $this->imgSrc = $imgSrc;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(string $description): self
+    {
+        $this->description = $description;
 
         return $this;
     }
