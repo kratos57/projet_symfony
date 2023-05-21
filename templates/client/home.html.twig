@@ -23,15 +23,15 @@
 
         <!-- Box des détails de voyage -->
         <div class="voyage-box">
-            {% for voyage in voyages %}
+            {% for travel_package in travel_packages %}
                 <div class="card">
                 {# <img src="{{ .img_src }}" class="card-img-top" alt="Image du voyage"> #}
                     <div class="card-body">
-                        <h5 class="card-title">{{ voyage.destination }}</h5>
-                        <p class="card-text">Date de départ : {{ voyage.date_depart }}</p>
-                        <p class="card-text">Date de retour : {{ voyage.date_retour }}</p>
-                        <p class="card-text">Prix : {{ voyage.prix }}</p>
-                        <p class="card-text">Description du vol : {{ voyage.description_vol }}</p>
+                        <h5 class="card-title">{{ travel_package.destination }}</h5>
+                        <p class="card-text">Date de départ : {{ travel_package.startDate ? travel_package.startDate|date('Y-m-d') : '' }}/p>
+                        <p class="card-text">Date de retour :  {{ travel_package.endDate ? travel_package.endDate|date('Y-m-d') : '' }} </p>
+                        <p class="card-text">Prix : {{ travel_package.price }}</p>
+                        <p class="card-text">Description du vol : {{ travel_package.description }}</p>
                         <a href="#" class="btn btn-primary">Réserver</a>
                     </div>
                 </div>

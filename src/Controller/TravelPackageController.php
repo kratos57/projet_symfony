@@ -16,7 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class TravelPackageController extends AbstractController
 {
     /**
-     * @Route("/", name="app_travel_package_index", methods={"GET"})
+     * @Route("/", name="app_travel_package", methods={"GET"})
      */
     public function index(TravelPackageRepository $travelPackageRepository): Response
     {

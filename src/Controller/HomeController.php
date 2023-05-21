@@ -2,29 +2,26 @@
 namespace App\Controller;
 
 use App\Entity\TravelPackage;
+use App\Form\TravelPackageType;
 use App\Repository\TravelPackageRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
- /**
-     * @Route("/home")
-     */
+
 class HomeController extends AbstractController
 {
     /**
-     * @Route("/listevoyage", name="client_home")
+     * @Route("/test", name="app_travel_package_index", methods={"GET"})
      */
-    public function listeVoyages(): Response
+    public function index(TravelPackageRepository $travelPackageRepository): Response
     {
-        $entityManager = $this->getDoctrine()->getManager();
-        $voyages = $entityManager->getRepository(TravelPackage::class)->findAll();
-
         return $this->render('client/home.html.twig', [
-            'voyages' => $voyages,
+            'travel_packages' => $travelPackageRepository->findAll(),
         ]);
     }
-    
+
+
     /**
      * @Route("/recherche", name="recherche")
      */
