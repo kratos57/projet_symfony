@@ -11,6 +11,15 @@
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="#">Luxurya Voyage</a>
+        {% if not app.user %}
+      <li class="nav-item">
+        <a href="{{ path('security_login')}}" class="nav-link">Connexion</a>
+      </li>
+  {% else %}
+      <li class="nav-item">
+        <a href="{{ path('security_logout')}}" class="nav-link">Déconnexion</a>
+      </li>
+  {% endif %}
     </nav>
 
     <section>

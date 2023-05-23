@@ -12,8 +12,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class HomeController extends AbstractController
 {
     /**
-     * @Route("/home",  methods={"GET"})
-     */
+     * @Route("/home", name="article_list", methods={"GET"}) 
+    */
     public function index(TravelPackageRepository $travelPackageRepository): Response
     {
         return $this->render('client/home.html.twig', [
