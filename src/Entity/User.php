@@ -43,11 +43,15 @@ class User implements UserInterface
      */
     private $password;
 
-
      /**
       *  @Assert\EqualTo(propertyPath = "password", message="Vous n'avez pas passé le même mot de passe !" )
      */
     private $confirm_password;
+
+    /**
+     * @ORM\Column(type="json")
+     */
+    private $roles = [];
 
     public function getConfirmPassword()
     {
@@ -104,9 +108,21 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getRoles()
+    public function getRoles(): array
     {
-        return ['ROLE_USER'];
+        $roles = $this->roles;
+    // garantit que chaque utilisateur possède le rôle ROLE_USER
+    // équvalent à array_push() qui ajoute un élément au tabeau
+          $roles[] = 'ROLE_USER'; 
+    //array_unique élémine des doublons      
+        return array_unique($roles);
+    }
+
+    public function setRoles(array $roles): self
+    {
+        $this->roles = $roles;
+
+        return $this;
     }
 
     public function eraseCredentials() {}
