@@ -1,1 +1,4 @@
 
+create_reservation:
+    path: /create-reservation/{customerId}/{packageId}
+    controller: App\Controller\HomeController::createReservation

@@ -51,36 +51,53 @@ class HomeController extends AbstractController
         ]);
     }
 
+   
+
     /**
-     *  @Route("/{customerId}/{packageId}", name="create_reservation",methods={"POST","get"})
+     * @Route("/reservation/success", name="reservation_success")
      */
-    public function createReservation(Request $request, ReservationRepository $reservationRepository, int $customerId = null, int $packageId = null): Response
+    public function reservationSuccess(): Response
     {
+        return new Response('Reservation successful!');
+    }
 
-
-        $entityManager = $this->getDoctrine()->getManager();
-        $customer = $entityManager->getRepository(User::class)->find($customerId);
-        $travelPackage = $entityManager->getRepository(TravelPackage::class)->find($packageId);
-        dump($customer);
-        dump($travelPackage);
-        if (!$customer || !$travelPackage) {
-            throw $this->createNotFoundException('Customer or Travel Package not found.');
+/**
+     * @Route("/home/{userId}/{packageId}", name="create_reservation" , methods={"GET","POST"})
+     */ 
+    public function createReservation(Request $request, ReservationRepository $reservationRepository, UserRepository $userRepository, $userId = null, $packageId): Response
+    {
+        // Retrieve the User object using the UserRepository and the provided $userId
+        $user = $userRepository->find($userId);
+    
+        // Check if the User object exists
+        if (!$user instanceof User) {   
+            throw $this->createNotFoundException('User not found.');
         }
-
+    
+        // Retrieve the TravelPackage object using the $packageId
+        $travelPackage = $this->getDoctrine()->getRepository(TravelPackage::class)->find($packageId);
+    
+        // Check if the TravelPackage object exists
+        if (!$travelPackage instanceof TravelPackage) {
+            throw $this->createNotFoundException('Travel Package not found.');
+        }
+    
+        // Create a new Reservation object
         $reservation = new Reservation();
-        dump("before set reservation");
-        dump($reservation);
-        $reservation->setUser($customer);
+        $reservation->setUser($user);
         $reservation->setTravelPackage($travelPackage);
-        dump("after set reservation");
-        dump($reservation);
+    
         $form = $this->createForm(ReservationType::class, $reservation);
         $form->handleRequest($request);
-        dump("after handle request");
-       
-
+    
+        if ($form->isSubmitted() && $form->isValid()) {
+            $reservationRepository->add($reservation);
+            return $this->redirectToRoute('create_reservation', [], Response::HTTP_SEE_OTHER);
+        }
+    
         return $this->render('client/home.html.twig', [
             'reservation' => $reservation,
+            'travel_package' => $travelPackage,
             'form' => $form->createView(),
         ]);
     }
