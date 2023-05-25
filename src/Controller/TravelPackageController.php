@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\TravelPackage;
+use App\Entity\User;
+
 use App\Form\TravelPackageType;
 use App\Repository\UserRepository;
 use App\Repository\TravelPackageRepository;
@@ -27,6 +29,7 @@ class TravelPackageController extends AbstractController
     }
 
 
+
     /**
      * @Route("/new", name="app_travel_package_new", methods={"GET", "POST"})
      */
@@ -38,7 +41,7 @@ class TravelPackageController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $travelPackageRepository->add($travelPackage);
-            return $this->redirectToRoute('app_travel_package_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_travel_package', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('Admin/ajouter.html.twig', [

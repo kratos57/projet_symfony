@@ -1,6 +1,7 @@
 <?php
 namespace App\Controller;
-
+use App\Entity\Customer;
+use App\Entity\Reservation;
 use App\Entity\TravelPackage;
 use App\Form\TravelPackageType;
 use App\Repository\TravelPackageRepository;
@@ -9,10 +10,13 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
+/**
+ * @Route("/home")
+ */
 class HomeController extends AbstractController
 {
     /**
-     * @Route("/home", name="article_list", methods={"GET"}) 
+     * @Route("/", name="article_list", methods={"GET"}) 
     */
     public function index(TravelPackageRepository $travelPackageRepository): Response
     {
@@ -39,4 +43,40 @@ class HomeController extends AbstractController
             'destination' => $destination,
         ]);
     }
+  /**
+     * @Route("/", name="create_reservation", methods={"Post"})
+     */
+    public function createReservation(int $customerId, int $packageId): Response
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+
+        // Get the customer by ID
+        $customer = $entityManager->getRepository(User::class)->find($customerId);
+
+        // Get the travel package by ID
+        $package = $entityManager->getRepository(TravelPackage::class)->find($packageId);
+
+        // Check if the customer and travel package exist
+        if (!$customer || !$package) {
+            throw $this->createNotFoundException('Customer or Travel Package not found.');
+        }
+
+        // Create a new reservation
+        $reservation = new Reservation();
+        $reservation->setUser($customer);
+        var_dump($reservation);
+
+        $reservation->setTravelPackage($package);
+        var_dump($reservation);
+        // Persist the reservation to the database
+        $entityManager->persist($reservation);
+        $entityManager->flush();
+
+        // Return a response indicating success
+        return new Response('Reservation created successfully!');
+    }
+
+
+
 }
+

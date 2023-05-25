@@ -44,7 +44,7 @@ class TravelPackage
      */
     private $customers;
 
-   
+
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -56,15 +56,24 @@ class TravelPackage
      */
     private $description;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Reservation::class, mappedBy="TravelPackage")
+     */
+    private $reservations;
+
+
+
+
     public function __construct()
     {
         $this->customers = new ArrayCollection();
+        $this->reservations = new ArrayCollection();
     }
 
- 
+
     public function __toString(): string
     {
-        return $this->id . ' ' . $this->destination ;
+        return $this->id . ' ' . $this->destination;
     }
 
     public function getId(): ?int
@@ -128,29 +137,7 @@ class TravelPackage
         return $this->customers;
     }
 
-    public function addCustomer(Customer $customer): self
-    {
-        if (!$this->customers->contains($customer)) {
-            $this->customers[] = $customer;
-            $customer->setPackageChosen($this);
-        }
 
-        return $this;
-    }
-
-    public function removeCustomer(Customer $customer): self
-    {
-        if ($this->customers->removeElement($customer)) {
-            // set the owning side to null (unless already changed)
-            if ($customer->getPackageChosen() === $this) {
-                $customer->setPackageChosen(null);
-            }
-        }
-
-        return $this;
-    }
-
-   
     public function getImgSrc(): ?string
     {
         return $this->imgSrc;
@@ -175,6 +162,33 @@ class TravelPackage
         return $this;
     }
 
+    /**
+     * @return Collection<int, Reservation>
+     */
+    public function getReservations(): Collection
+    {
+        return $this->reservations;
+    }
 
- 
+    public function addReservation(Reservation $reservation): self
+    {
+        if (!$this->reservations->contains($reservation)) {
+            $this->reservations[] = $reservation;
+            $reservation->setTravelPackage($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReservation(Reservation $reservation): self
+    {
+        if ($this->reservations->removeElement($reservation)) {
+            // set the owning side to null (unless already changed)
+            if ($reservation->getTravelPackage() === $this) {
+                $reservation->setTravelPackage(null);
+            }
+        }
+
+        return $this;
+    }
 }

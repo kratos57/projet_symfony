@@ -34,19 +34,23 @@ class Customer
      */
     private $email;
 
+
+
     /**
-     * @ORM\ManyToOne(targetEntity=TravelPackage::class, inversedBy="customers")
+     * @ORM\OneToMany(targetEntity=Reservation::class, mappedBy="Customer")
      */
-    private $packageChosen;
+    private $reservations;
+
+    public function __construct()
+    {
+        $this->reservations = new ArrayCollection();
+    }
 
     /**
      * @ORM\ManyToOne(targetEntity=Reserve::class, inversedBy="customer")
      * @ORM\JoinColumn(nullable=false)
      */
-   
 
-  
-  
 
   
     public function getId(): ?int
@@ -93,25 +97,13 @@ class Customer
  
  
 
-    public function getPackageChosen(): ?TravelPackage
-    {
-        return $this->packageChosen;
-    }
-
-    public function setPackageChosen(?TravelPackage $packageChosen): self
-    {
-        $this->packageChosen = $packageChosen;
-
-        return $this;
-    }
-
 
 
     
 
     public function __toString(): string
     {
-        return $this->nom . ' ' . $this->email . ' ' . $this->packageChosen . ' ' . $this->prenom . ' ' . $this->packageChosen ;
+        return $this->nom . ' ' . $this->email . ' ' . $this->prenom . ' ' ;
     }
 
     
