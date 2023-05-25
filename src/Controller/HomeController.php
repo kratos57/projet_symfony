@@ -1,6 +1,9 @@
 <?php
 namespace App\Controller;
+<<<<<<< HEAD
 use App\Entity\Customer;
+=======
+>>>>>>> 7ae631587f1b05cf6f2d800218144931583c3554
 use App\Entity\Reservation;
 use App\Entity\TravelPackage;
 use App\Form\TravelPackageType;
@@ -43,6 +46,7 @@ class HomeController extends AbstractController
             'destination' => $destination,
         ]);
     }
+<<<<<<< HEAD
   /**
      * @Route("/", name="create_reservation", methods={"Post"})
      */
@@ -77,6 +81,9 @@ class HomeController extends AbstractController
     }
 
 
+=======
+  
+>>>>>>> 7ae631587f1b05cf6f2d800218144931583c3554
 
 }
 
