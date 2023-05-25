@@ -56,7 +56,6 @@ class TravelPackage
      */
     private $description;
 
-<<<<<<< HEAD
     /**
      * @ORM\OneToMany(targetEntity=Reservation::class, mappedBy="TravelPackage")
      */
@@ -64,8 +63,6 @@ class TravelPackage
 
 
 
-=======
->>>>>>> 7ae631587f1b05cf6f2d800218144931583c3554
 
     public function __construct()
     {
@@ -173,7 +170,6 @@ class TravelPackage
         return $this->reservations;
     }
 
-<<<<<<< HEAD
     public function addReservation(Reservation $reservation): self
     {
         if (!$this->reservations->contains($reservation)) {
@@ -195,8 +191,4 @@ class TravelPackage
 
         return $this;
     }
-=======
-
- 
->>>>>>> 7ae631587f1b05cf6f2d800218144931583c3554
 }

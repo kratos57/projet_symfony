@@ -37,16 +37,12 @@
                     <div class="card-body">
                     
 
-                        <p>{{travel_package.id}}</p>
                         <h5 class="card-title">{{ travel_package.destination }}</h5>
                         <p class="card-text">Date de départ : {{ travel_package.startDate ? travel_package.startDate|date('Y-m-d') : '' }}</p>
                         <p class="card-text">Date de retour :  {{ travel_package.endDate ? travel_package.endDate|date('Y-m-d') : '' }} </p>
                         <p class="card-text">Prix : {{ travel_package.price }}</p>
                         <p class="card-text">Description du vol : {{ travel_package.description }}</p>
-                        
-                        <a  href="{{ path('create_reservation', {'customerId': app.user.id, 'packageId': travel_package.id }) }}"class="btn btn-primary">>Create Reservation</a>
-                        </form>
-
+                        {{ include('client/accept_form.html.twig') }}
                     </div>
                 </div>
             {% endfor %}

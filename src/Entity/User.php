@@ -9,6 +9,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
+
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  * @UniqueEntity(
@@ -173,5 +174,9 @@ class User implements UserInterface
         return $this;
     }
 
+    public function __toString(): string
+    {
+        return $this->id . ' ' . $this->username  ;
+    }
     
 }
