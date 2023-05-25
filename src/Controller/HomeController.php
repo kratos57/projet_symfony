@@ -48,7 +48,7 @@ class HomeController extends AbstractController
     }
 
 /**
- * @Route("/", name="create_reservation",methods={"POST"})
+ * @Route("/", name="create_reservation",methods={"POST","get"})
  */
 public function createReservation(Request $request, ReservationRepository $reservationRepository ): Response
 {
