@@ -70,7 +70,7 @@ class TravelPackageController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $travelPackageRepository->add($travelPackage);
-            return $this->redirectToRoute('app_travel_package_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_travel_package', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('Admin/modifierVoyage.html.twig', [
@@ -88,7 +88,7 @@ class TravelPackageController extends AbstractController
             $travelPackageRepository->remove($travelPackage);
         }
 
-        return $this->redirectToRoute('app_travel_package_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_travel_package', [], Response::HTTP_SEE_OTHER);
     }
 
 }

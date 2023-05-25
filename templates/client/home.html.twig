@@ -12,14 +12,14 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="#">Luxurya Voyage</a>
         {% if not app.user %}
-      <li class="nav-item">
-        <a href="{{ path('security_login')}}" class="nav-link">Connexion</a>
-      </li>
-  {% else %}
-      <li class="nav-item">
-        <a href="{{ path('security_logout')}}" class="nav-link">Déconnexion</a>
-      </li>
-  {% endif %}
+            <li class="nav-item">
+                <a href="{{ path('security_login')}}" class="nav-link">Connexion</a>
+            </li>
+        {% else %}
+            <li class="nav-item">
+                <a href="{{ path('security_logout')}}" class="nav-link">Déconnexion</a>
+            </li>
+        {% endif %}
     </nav>
 
     <section>
@@ -33,15 +33,13 @@
         <div class="voyage-box">
             {% for travel_package in travel_packages %}
                 <div class="card">
-                 <img src="{{ travel_package.imgSrc }}" class="card-img-top" alt="Image du voyage"> 
+                    <img src="{{ travel_package.imgSrc }}" class="card-img-top" alt="Image du voyage"> 
                     <div class="card-body">
-                    
-
                         <h5 class="card-title">{{ travel_package.destination }}</h5>
-                        <p class="card-text">Date de départ : {{ travel_package.startDate ? travel_package.startDate|date('Y-m-d') : '' }}</p>
-                        <p class="card-text">Date de retour :  {{ travel_package.endDate ? travel_package.endDate|date('Y-m-d') : '' }} </p>
-                        <p class="card-text">Prix : {{ travel_package.price }}</p>
-                        <p class="card-text">Description du vol : {{ travel_package.description }}</p>
+                        <p class="card-text">Date de départ: {{ travel_package.startDate ? travel_package.startDate|date('Y-m-d') : '' }}</p>
+                        <p class="card-text">Date de retour:  {{ travel_package.endDate ? travel_package.endDate|date('Y-m-d') : '' }} </p>
+                        <p class="card-text">Prix: {{ travel_package.price }}</p>
+                        <p class="card-text">Description du vol: {{ travel_package.description }}</p>
                         {{ include('client/accept_form.html.twig') }}
                     </div>
                 </div>
