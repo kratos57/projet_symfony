@@ -19,15 +19,23 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class TravelPackageController extends AbstractController
 {
     /**
-     * @Route("/", name="app_travel_package", methods={"GET"})
+     * @Route("/", name="app_travel_package_index", methods={"GET"})
      */
-    public function index(TravelPackageRepository $travelPackageRepository): Response
+    public function gererVol(TravelPackageRepository $travelPackageRepository): Response
     {
         return $this->render('Admin/index.html.twig', [
             'travel_packages' => $travelPackageRepository->findAll(),
         ]);
     }
-
+    /**
+     * @Route("/main", name="app_travel_package", methods={"GET"})
+     */
+    public function index(TravelPackageRepository $travelPackageRepository): Response
+    {
+        return $this->render('Admin/gererVol.html.twig', [
+            'travel_packages' => $travelPackageRepository->findAll(),
+        ]);
+    }
 
 
     /**

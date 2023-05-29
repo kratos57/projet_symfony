@@ -36,10 +36,10 @@
     <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse bg-white">
         <div class="position-sticky">
             <div class="list-group list-group-flush mx-3 mt-4">
-                <a href="{{path('app_travel_package_index')}}" class="list-group-item list-group-item-action py-2 ripple active" aria-current="true">
+                <a href="{{path('app_travel_package_index')}}" class="list-group-item list-group-item-action py-2 ripple " aria-current="true">
                     <i class="fas fa-tachometer-alt fa-fw me-3"></i><span>Main dashboard </span>
                 </a>
-            <a href="{{path('app_travel_package')}}" class="list-group-item list-group-item-action py-2 ripple  " aria-current="true">
+            <a href="{{path('app_travel_package')}}" class="list-group-item list-group-item-action py-2 ripple active " aria-current="true">
                     <i class="fas fa-tachometer-alt fa-fw me-3"></i><span>Gerer Vol</span>
                 </a>
                 <a href="{{path('app_travel_package_new')}}" class="list-group-item list-group-item-action py-2 ripple ">
@@ -48,7 +48,8 @@
                
                 <a href="{{path('app_customer_index')}}" class="list-group-item list-group-item-action py-2 ripple "
             ><i class="fas fa-users fa-fw me-3"></i><span>Gerer Compte</span></a
-          > 
+          >
+              
             </div>
         </div>
     </nav>
@@ -114,12 +115,27 @@
 
 <main style="margin-top: 58px;" >
     <div class="container pt-4 ">
+        <H1>Les Vol : </H1>
       
         <div class="d-flex flex-row">
             
-              
+                {% for travel_package in travel_packages %}
+            <div class="card me-3 " style="width: 18rem;">
+            <img src="{{ travel_package.imgSrc }}" class="card-img-top img" alt=""/>
+            
+            <div class="card-body ">
+                <h5 class="card-title">{{ travel_package.destination }}</h5>
+                <p class="card-text">{{ travel_package.description }} </p>
+                <h6 >Price : {{ travel_package.price }} TND</h6> 
+                <h6 >Starting Date : {{ travel_package.startDate ? travel_package.startDate|date('Y-m-d') : '' }}</h6>
+                <h6>Ending Date: {{ travel_package.endDate ? travel_package.endDate|date('Y-m-d') : '' }}   </h6>
+                <a href="{{ path('app_travel_package_edit', {'id': travel_package.id}) }}" class="btn btn-primary ">Edit</a>
+                {{ include('Admin/_deleteTravelPackage_form.html.twig') }}
+            
+            </div>
+            </div>
+            {% endfor %}
 
-    
             
       </div>
       

@@ -61,44 +61,5 @@ class HomeController extends AbstractController
         return new Response('Reservation successful!');
     }
 
-/**
-     * @Route("/home/{userId}/{packageId}", name="create_reservation" , methods={"GET","POST"})
-     */ 
-    public function createReservation(Request $request, ReservationRepository $reservationRepository, UserRepository $userRepository, $userId = null, $packageId): Response
-    {
-        // Retrieve the User object using the UserRepository and the provided $userId
-        $user = $userRepository->find($userId);
-    
-        // Check if the User object exists
-        if (!$user instanceof User) {   
-            throw $this->createNotFoundException('User not found.');
-        }
-    
-        // Retrieve the TravelPackage object using the $packageId
-        $travelPackage = $this->getDoctrine()->getRepository(TravelPackage::class)->find($packageId);
-    
-        // Check if the TravelPackage object exists
-        if (!$travelPackage instanceof TravelPackage) {
-            throw $this->createNotFoundException('Travel Package not found.');
-        }
-    
-        // Create a new Reservation object
-        $reservation = new Reservation();
-        $reservation->setUser($user);
-        $reservation->setTravelPackage($travelPackage);
-    
-        $form = $this->createForm(ReservationType::class, $reservation);
-        $form->handleRequest($request);
-    
-        if ($form->isSubmitted() && $form->isValid()) {
-            $reservationRepository->add($reservation);
-            return $this->redirectToRoute('create_reservation', [], Response::HTTP_SEE_OTHER);
-        }
-    
-        return $this->render('client/home.html.twig', [
-            'reservation' => $reservation,
-            'travel_package' => $travelPackage,
-            'form' => $form->createView(),
-        ]);
-    }
+
 }

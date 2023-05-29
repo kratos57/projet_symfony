@@ -36,15 +36,6 @@ class Customer
 
 
 
-    /**
-     * @ORM\OneToMany(targetEntity=Reservation::class, mappedBy="Customer")
-     */
-    private $reservations;
-
-    public function __construct()
-    {
-        $this->reservations = new ArrayCollection();
-    }
 
     /**
      * @ORM\ManyToOne(targetEntity=Reserve::class, inversedBy="customer")
@@ -93,11 +84,6 @@ class Customer
 
         return $this;
     }
-
- 
- 
-
-
 
     
 

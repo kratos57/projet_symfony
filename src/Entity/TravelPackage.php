@@ -56,21 +56,7 @@ class TravelPackage
      */
     private $description;
 
-    /**
-     * @ORM\OneToMany(targetEntity=Reservation::class, mappedBy="TravelPackage")
-     */
-    private $reservations;
-
-
-
-
-    public function __construct()
-    {
-        $this->customers = new ArrayCollection();
-        $this->reservations = new ArrayCollection();
-    }
-
-
+  
     public function __toString(): string
     {
         return $this->id . ' ' . $this->destination;
@@ -162,33 +148,5 @@ class TravelPackage
         return $this;
     }
 
-    /**
-     * @return Collection<int, Reservation>
-     */
-    public function getReservations(): Collection
-    {
-        return $this->reservations;
-    }
-
-    public function addReservation(Reservation $reservation): self
-    {
-        if (!$this->reservations->contains($reservation)) {
-            $this->reservations[] = $reservation;
-            $reservation->setTravelPackage($this);
-        }
-
-        return $this;
-    }
-
-    public function removeReservation(Reservation $reservation): self
-    {
-        if ($this->reservations->removeElement($reservation)) {
-            // set the owning side to null (unless already changed)
-            if ($reservation->getTravelPackage() === $this) {
-                $reservation->setTravelPackage(null);
-            }
-        }
-
-        return $this;
-    }
+   
 }
