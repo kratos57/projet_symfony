@@ -32,8 +32,10 @@ class TravelPackageController extends AbstractController
      */
     public function index(TravelPackageRepository $travelPackageRepository): Response
     {
+        $x=$travelPackageRepository->findAll();
+        dump($x);
         return $this->render('Admin/gererVol.html.twig', [
-            'travel_packages' => $travelPackageRepository->findAll(),
+            'travel_packages' => $x,
         ]);
     }
 

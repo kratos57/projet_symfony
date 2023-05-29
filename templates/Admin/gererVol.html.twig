@@ -121,8 +121,7 @@
             
                 {% for travel_package in travel_packages %}
             <div class="card me-3 " style="width: 18rem;">
-            <img src="{{ travel_package.imgSrc }}" class="card-img-top img" alt=""/>
-            
+            <img src="{{ asset('images/vol/' ~ travel_package.imageName) }}" class="card-img-top img" alt=""/>
             <div class="card-body ">
                 <h5 class="card-title">{{ travel_package.destination }}</h5>
                 <p class="card-text">{{ travel_package.description }} </p>

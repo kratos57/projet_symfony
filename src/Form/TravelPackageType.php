@@ -4,8 +4,10 @@ namespace App\Form;
 
 use App\Entity\TravelPackage;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Vich\UploaderBundle\Form\Type\VichFileType;
 
 class TravelPackageType extends AbstractType
 {
@@ -16,9 +18,11 @@ class TravelPackageType extends AbstractType
             ->add('startDate')
             ->add('endDate')
             ->add('price')
-            ->add('imgSrc')
             
             ->add('description')
+            ->add('imageFile',VichFileType::class,[
+                'label'=>'upload img'
+            ])
         ;
     }
 
